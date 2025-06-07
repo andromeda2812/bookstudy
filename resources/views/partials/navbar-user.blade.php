@@ -5,9 +5,16 @@
             text-decoration: underline;
         }
 
+        .navbar .nav-link {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+
         .navbar .nav-link:hover {
+            transform: scale(1.1);
             color: black !important;
             text-decoration: underline;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
         }
     </style>
 
@@ -25,15 +32,17 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarUser">
             <ul class="navbar-nav align-items-center gap-3">
                 <li class="nav-item fw-bold">
-                    <a href="{{ route('dashboard.user') }}" class="nav-link text-maroon">
-                        <i class="bi bi-house-door-fill me-1"></i> Dashboard
-                    </a>
+                  <a href="{{ route('dashboard') }}" class="nav-link text-maroon">
+    <i class="bi bi-house-door-fill me-1"></i> Dashboard
+</a>
+
                 </li>
                 <li class="nav-item fw-bold">
                     <a href="{{ route('ruangan.index') }}" class="nav-link text-maroon">
                         <i class="bi bi-check-square me-1"></i> Lihat Ruang Studi
                     </a>
                 </li>
+                
                 <li class="nav-item fw-bold">
                     <a href="{{ route('booking.index') }}" class="nav-link text-maroon">
                         <i class="bi bi-journal-text me-1"></i> Booking Saya
@@ -46,7 +55,14 @@
                     <ul class="dropdown-menu dropdown-menu-end fw-bold" style="background-color: #A42421;">
                         <li><a class="dropdown-item" href="{{ route('user.profil') }}" style="color: #F1EDE1; font-weight: bold;">Profil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('home.user') }}" style="color: #F1EDE1; font-weight: bold;">Logout</a></li>
+                        <li>
+                            <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #F1EDE1; font-weight: bold;">
+                                Logout
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>

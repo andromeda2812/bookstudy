@@ -5,9 +5,16 @@
             text-decoration: underline;
         }
 
+        .navbar .nav-link {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+
         .navbar .nav-link:hover {
+            transform: scale(1.1);
             color: black !important;
             text-decoration: underline;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
         }
     </style>
 
@@ -35,9 +42,10 @@
                     </a>
                 </li>
                 <li class="nav-item fw-bold">
-                    <a href="{{ route('admin.booking.index') }}" class="nav-link text-maroon">
-                        <i class="bi bi-journal-check me-1"></i> Booking Masuk
+                   <a href="{{ route('admin.booking.index') }}" class="nav-link text-maroon">
+                         <i class="bi bi-journal-check me-1"></i> Booking Masuk
                     </a>
+
                 </li>
                 <li class="nav-item fw-bold">
                     <a href="{{ route('admin.maintenance.index') }}" class="nav-link text-maroon">
@@ -52,7 +60,14 @@
                     <ul class="dropdown-menu dropdown-menu-end fw-bold" style="background-color: #A42421;">
                         <li><a class="dropdown-item" href="{{ route('admin.profil') }}" style="color: #F1EDE1; font-weight: bold;">Profil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('home.admin') }}" style="color: #F1EDE1; font-weight: bold;">Logout</a></li>
+                        <li>
+                        <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #F1EDE1; font-weight: bold;">
+                            Logout
+                        </a>
+                        <form method="POST" action="{{ route('admin_logout') }}" id="logout-form" style="display: none;">
+                            @csrf
+                        </form>
+                        </li>
                     </ul>
                 </li>              
             </ul>

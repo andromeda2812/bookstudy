@@ -11,15 +11,23 @@
             <div class="card-body">
                 <h4 class="text-maroon fw-bold mb-4 text-center">Login Admin</h4>
 
-                <form>
+                {{-- Tampilkan pesan error jika login gagal --}}
+                @if(session('error'))
+                    <div class="alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form action="{{ route('admin.login.submit') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+                        <input type="email" class="form-control" name="email" placeholder="Masukkan email" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Kata Sandi</label>
-                        <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi">
+                        <input type="password" class="form-control" name="password" placeholder="Masukkan kata sandi" required>
                     </div>
 
                     <button type="submit" class="btn btn-maroon w-100">Login Admin</button>
@@ -29,3 +37,4 @@
     </div>
 </div>
 @endsection
+

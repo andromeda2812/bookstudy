@@ -17,16 +17,22 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
-    {
-        $guards = empty($guards) ? [null] : $guards;
+  public function handle(Request $request, Closure $next, ...$guards)
+{
+    $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+    foreach ($guards as $guard) {
+        if (Auth::guard($guard)->check()) {
+            // Redirect ke dashboard sesuai guard
+            if ($guard === 'admin') {
+                return redirect()->route('admin.dashboard');
             }
-        }
 
-        return $next($request);
+            return redirect()->route('dashboard'); // Untuk user biasa
+        }
     }
+
+    return $next($request);
+}
+
 }

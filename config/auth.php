@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Tambahan guard untuk admin
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -65,10 +71,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        // Tambahan provider untuk admin
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     /*
@@ -93,6 +100,14 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        // (Optional) Bisa tambah reset password untuk admin jika perlu
+        // 'admins' => [
+        //     'provider' => 'admins',
+        //     'table' => 'admin_password_resets',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ],
     ],
 
     /*
