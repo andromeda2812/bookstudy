@@ -36,5 +36,22 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('swal_success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "{{ session('swal_success') }}",
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "{{ route('admin.login') }}";
+            });
+        });
+    </script>
+@endif
 @endsection
 

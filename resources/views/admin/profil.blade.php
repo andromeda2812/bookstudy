@@ -91,4 +91,33 @@
         box-shadow: 0 20px 30px rgba(128, 0, 0, 0.4);
     }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('swal_error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ session('swal_error') }}",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
+
+@if($errors->has('password'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ $errors->first('password') }}",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 @endsection

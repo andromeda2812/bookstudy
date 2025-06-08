@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -30,6 +31,7 @@ class UserController extends Controller
     // Update data profil user
     public function updateProfil(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $request->validate([
@@ -37,6 +39,8 @@ class UserController extends Controller
             'nim' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'nullable|string|min:6|confirmed',
+        ], [
+            'password.confirmed' => 'Password baru dan konfirmasi password tidak cocok.',
         ]);
 
         $user->nama = $request->nama;
@@ -44,7 +48,18 @@ class UserController extends Controller
         $user->email = $request->email;
 
         if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->with('swal_error', 'Password lama tidak sesuai.');
+            }
+
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('swal_success', 'Profil dan password berhasil diperbarui. Silakan login kembali.');
         }
 
         $user->save();

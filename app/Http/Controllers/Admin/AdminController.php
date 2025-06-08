@@ -57,18 +57,24 @@ class AdminController extends Controller
         $request->validate([
             'current_password' => ['required'],
             'password' => ['required', 'confirmed', 'min:8'],
+        ], [
+            'password.confirmed' => 'Password baru dan konfirmasi password tidak cocok.',
         ]);
 
         /** @var Admin $admin */
         $admin = Auth::guard('admin')->user();
 
         if (!Hash::check($request->current_password, $admin->password)) {
-            return back()->withErrors(['current_password' => 'Kata sandi saat ini salah.']);
+            return back()->with('swal_error', 'Kata sandi saat ini salah.');
         }
 
         $admin->password = Hash::make($request->password);
         $admin->save();  // <-- error di sini biasanya karena tipe $admin bukan model
 
-        return redirect()->route('admin.profil')->with('success', 'Kata sandi berhasil diperbarui.');
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login')->with('swal_success', 'Kata sandi berhasil diperbarui. Silahkan login kembali.');
     }
 }

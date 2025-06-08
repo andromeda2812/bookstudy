@@ -74,6 +74,16 @@
             <p class="mb-2 fw-semibold">Ganti Password (opsional)</p>
 
             <div class="mb-3">
+                <label for="current_password" class="form-label">Password Lama</label>
+                <input type="password" name="current_password" id="current_password"
+                    class="form-control @error('current_password') is-invalid @enderror"
+                    placeholder="Masukkan password lama jika ingin ganti password">
+                @error('current_password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
                 <label for="password" class="form-label">Password Baru</label>
                 <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Kosongkan jika tidak ingin ganti password">
                 @error('password')
@@ -112,4 +122,47 @@
         box-shadow: 0 20px 30px rgba(128, 0, 0, 0.4);
     }
 </style>
+
+@if (session('swal_success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('swal_success') }}",
+            timer: 3000,
+            showConfirmButton: false
+        });
+    });
+</script>
+@endif
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('swal_error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ session('swal_error') }}",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
+
+@if ($errors->has('password'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "{{ $errors->first('password') }}",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    });
+</script>
+@endif
 @endsection
