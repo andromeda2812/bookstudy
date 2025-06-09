@@ -21,7 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::post('login', [AdminController::class, 'login'])->name('admin.login.submit');
 
     Route::middleware('auth:admin')->group(function () {
-        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('logout', [AdminController::class, 'logout'])->name('admin_logout');
         Route::post('/admin/booking/reject', [BookingMasukController::class, 'reject'])->name('admin.booking.reject');
 

@@ -26,7 +26,7 @@
             <th>Jam</th>
             <th>Status</th>
             <th style="width: 180px;">Aksi</th>
-            <th>Hapus</th>
+            <th>Lainnya</th>
         </tr>
     </thead>
     <tbody>
@@ -72,13 +72,35 @@
                     <span class="text-muted">-</span>
                 @endif
             </td>
-            <td><form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" class="d-inline delete-form">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger">
-                    <i class="bi bi-trash"></i>
+            <td>
+                <!-- Tombol Lihat Tujuan -->
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#tujuanModal{{ $booking->id }}">
+                    <i class="bi bi-eye"></i>
                 </button>
-            </form>
+
+                <!-- Tombol Hapus -->
+                <form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" class="d-inline delete-form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+
+                <!-- Modal Tujuan -->
+                <div class="modal fade" id="tujuanModal{{ $booking->id }}" tabindex="-1" aria-labelledby="tujuanModalLabel{{ $booking->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="tujuanModalLabel{{ $booking->id }}">Tujuan Penggunaan Ruang</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ $booking->tujuan ?? 'Tidak ada tujuan' }}</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </td>
         </tr>
         @empty
@@ -201,6 +223,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     form.submit();
                 }
             });
+        });
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const thumbnails = document.querySelectorAll('.ktm-thumb');
+    const imgPreview = document.getElementById('fotoKtmBesar');
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function () {
+            const src = this.getAttribute('data-src');
+            imgPreview.setAttribute('src', src);
         });
     });
 });

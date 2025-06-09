@@ -11,7 +11,7 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $ruangs = Ruang::orderBy('created_at', 'desc')->get();
+        $ruangs = Ruang::orderByRaw('CAST(SUBSTRING_INDEX(nama, " ", -1) AS UNSIGNED)')->get();
         return view('admin.ruangan.index', compact('ruangs'));
     }
 

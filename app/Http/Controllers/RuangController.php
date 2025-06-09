@@ -9,7 +9,7 @@ class RuangController extends Controller
 {
     public function index()
     {
-        $ruangs = RuangUser::all(); // ambil semua data ruang dari tabel 'ruang'
+        $ruangs = RuangUser::orderByRaw('CAST(SUBSTRING_INDEX(nama, " ", -1) AS UNSIGNED)')->get();
         return view('ruang.index', compact('ruangs'));
     }
 }

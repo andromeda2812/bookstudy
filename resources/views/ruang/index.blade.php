@@ -11,33 +11,30 @@
             Silahkan cek ketersediaan ruang studi sebelum melakukan booking
         </p>
     </div>
-    <div class="row">
-        @foreach ($ruangs as $ruang)
-            <div class="col-md-4 mb-4">
-                <div class="card border-0" style="background-color: #F1EDE1; box-shadow: 0 0 12px rgba(0,0,0,0.15);">
-                    @if ($ruang->foto)
-                        <img src="{{ asset('storage/' . $ruang->foto) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Foto {{ $ruang->nama }}">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="fw-bold" style="color: #A42421;">{{ $ruang->nama }}</h5>
-                        <p style="color: #A42421;">Kapasitas: {{ $ruang->kapasitas }} Orang</p>
-                        <p style="color: #A42421;">{{ $ruang->deskripsi ?? '-' }}</p>
+   <div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach ($ruangs as $ruang)
+        <div class="col">
+            <div class="card h-100 d-flex flex-column" style="background-color: #F1EDE1; box-shadow: 0 0 12px rgba(0,0,0,0.15);">
+                @if ($ruang->foto)
+                    <img src="{{ asset('storage/' . $ruang->foto) }}" class="card-img-top" 
+                        style="height: 180px; object-fit: cover; width: 100%;" alt="Foto {{ $ruang->nama }}">
+                @endif
+                <div class="card-body d-flex flex-column p-3">
+                    <div class="flex-grow-1 mb-2">
+                        <h6 class="fw-bold mb-1" style="color: #A42421; font-size: 1rem;">{{ $ruang->nama }}</h6>
+                        <small class="d-block" style="color: #A42421;">Kapasitas: {{ $ruang->kapasitas }} Orang</small>
+                        <small class="d-block mt-1" style="color: #A42421;">{{ $ruang->deskripsi ?? '-' }}</small>
+                    </div>
+                    <div>
                         @if ($ruang->status == 2)
-                            <span class="badge bg-warning text-dark mb-3 px-3 py-2">Maintenance</span>
-                            <button class="btn btn-secondary w-100 mt-2" disabled>
-                                Dalam Maintenance
-                            </button>
-                            <button 
-                                type="button" 
-                                class="btn btn-warning w-100 mt-2 open-maintenance-detail-modal" 
-                                data-id="{{ $ruang->id }}">
+                            <span class="badge bg-warning text-dark mb-2 px-2 py-1">Maintenance</span>
+                            <button class="btn btn-sm btn-secondary w-100 mb-2" disabled>Dalam Maintenance</button>
+                            <button type="button" class="btn btn-sm btn-warning w-100 open-maintenance-detail-modal" data-id="{{ $ruang->id }}">
                                 Lihat Detail
                             </button>
                         @else
-                            <span class="badge bg-success mb-3 px-3 py-2">Tersedia</span>
-                            <button 
-                                type="button"
-                                class="btn btn-maroon w-100 mt-2 open-booking-modal"
+                            <span class="badge bg-success mb-2 px-2 py-1">Tersedia</span>
+                            <button type="button" class="btn btn-sm btn-maroon w-100 open-booking-modal"
                                 data-id="{{ $ruang->id }}"
                                 data-nama="{{ $ruang->nama }}">
                                 Booking Ruang
@@ -46,8 +43,9 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
+</div>
 
     <!-- MODAL BOOKING -->
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">

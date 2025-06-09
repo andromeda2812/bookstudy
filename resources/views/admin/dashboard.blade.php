@@ -27,6 +27,23 @@
         transform: translateY(-5px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
+
+    @keyframes floatY {
+    0%   { transform: translateX(-50%) translateY(0); }
+    50%  { transform: translateX(-50%) translateY(-10px); }
+    100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    .animated-image {
+        animation: floatY 4s ease-in-out infinite;
+        opacity: 0.3;
+        position: absolute; /* atau absolute, sesuaikan */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 600px;
+        z-index: 0;
+    }
 </style>
 
 @if(session('success'))
@@ -37,6 +54,34 @@
 
 <h2 class="text-maroon fw-bold">Dashboard Admin</h2>
 <p class="text-maroon">Selamat datang di panel pengelola <strong>BookStudy</strong>. Silakan pilih menu untuk mengelola sistem.</p>
+<img src="{{ asset('img/admin.png') }}" alt="Ilustrasi" class="animated-image">
+
+<div class="row justify-content-center text-center mt-4">
+    <div class="col-md-3 mb-3" data-aos="fade-down">
+        <div class="p-4 rounded-3 shadow border-0" style="background-color: #fefefe;">
+            <h6 class="fw-bold text-maroon">Total Booking</h6>
+            <h3 class="fw-bold text-maroon">{{ $totalBooking }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3" data-aos="fade-down" data-aos-delay="100">
+        <div class="p-4 rounded-3 shadow border-0" style="background-color: #f8f8f8;">
+            <h6 class="fw-bold text-success">Disetujui</h6>
+            <h3 class="fw-bold text-success">{{ $approvedBooking }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3" data-aos="fade-down" data-aos-delay="200">
+        <div class="p-4 rounded-3 shadow border-0" style="background-color: #f8f8f8;">
+            <h6 class="fw-bold text-danger">Ditolak</h6>
+            <h3 class="fw-bold text-danger">{{ $rejectedBooking }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3" data-aos="fade-down" data-aos-delay="300">
+        <div class="p-4 rounded-3 shadow border-0" style="background-color: #f8f8f8;">
+            <h6 class="fw-bold text-warning">Menunggu</h6>
+            <h3 class="fw-bold text-warning">{{ $pendingBooking }}</h3>
+        </div>
+    </div>
+</div>
 
 <div class="row mt-4">
     <div class="col-md-4 mb-4" data-aos="fade-up-right" data-aos-delay="200" data-aos-duration="800">

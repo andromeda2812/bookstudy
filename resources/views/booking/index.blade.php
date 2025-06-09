@@ -72,7 +72,7 @@
                                     </table>
 
                                     <div class="mt-3 text-muted fst-italic">Tunjukkan tiket ini saat memasuki ruang studi</div>
-                                    <button onclick="downloadTicket('ticketCard{{ $booking->id }}')" class="btn custom-maroon-show mt-3 px-4 shadow-sm">
+                                    <button onclick="downloadTicket('ticketCard{{ $booking->id }}')" class="btn btn-outline-maroon mt-3 px-4 shadow-sm">
                                         <i class="bi bi-download me-1"></i> Simpan sebagai Gambar
                                     </button>
                                 </div>
