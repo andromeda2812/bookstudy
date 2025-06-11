@@ -124,7 +124,7 @@
 
         Swal.fire({
             title: 'Yakin hapus?',
-            text: `Jadwal maintenance ruang ${ruang} akan dihapus.`,
+            text: `Jadwal maintenance ${ruang} akan dihapus.`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#A42421',
