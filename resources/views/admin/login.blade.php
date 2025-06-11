@@ -32,9 +32,34 @@
 
                     <button type="submit" class="btn btn-maroon w-100">Login Admin</button>
                 </form>
+                <p class="mt-3 text-center">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalLupaPassword" class="text-maroon">Lupa Password?</a>
+                </p>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Lupa Password -->
+<div class="modal fade" id="modalLupaPassword" tabindex="-1" aria-labelledby="modalLupaPasswordLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="{{ route('admin.password.email') }}">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLupaPasswordLabel">Reset Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          <p>Masukkan email akun Anda untuk menerima link reset password.</p>
+          <input type="email" name="email" class="form-control" placeholder="Email" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-maroon">Kirim Link Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
